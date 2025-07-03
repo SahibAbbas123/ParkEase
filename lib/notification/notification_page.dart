@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:parkz/notification/component/notification_card.dart';
 import 'package:parkz/utils/constanst.dart';
 import 'package:parkz/utils/text/semi_bold.dart';
+import '../l10n/app_localizations.dart';
 
 class NotificationPage extends StatefulWidget {
   const NotificationPage({Key? key}) : super(key: key);
@@ -22,7 +23,7 @@ class _NotificationPageState extends State<NotificationPage> {
             color: AppColor.forText
         ),
         backgroundColor: Colors.white,
-        title: const SemiBoldText(text: 'Thông báo', fontSize: 20, color: AppColor.forText),
+        title: SemiBoldText(text: AppLocalizations.of(context).notificationsTitle, fontSize: 20, color: AppColor.forText),
       ),
       body: ListView.builder(
         padding: const EdgeInsets.only(top: 10,bottom: 20, left: 15, right: 15),

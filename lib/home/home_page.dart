@@ -18,6 +18,8 @@ import 'package:parkz/utils/preference_manager.dart';
 import 'package:parkz/utils/text/regular.dart';
 import 'package:parkz/utils/text/semi_bold.dart';
 import 'package:provider/provider.dart';
+import '../main.dart';
+import '../l10n/app_localizations.dart';
 
 import '../model/rating_home_response.dart';
 import '../utils/warning__flag_provider.dart';
@@ -73,8 +75,8 @@ class _HomePageState extends State<HomePage> {
         context: context,
         dialogType: DialogType.warning,
         animType: AnimType.bottomSlide,
-        title: 'Thông báo',
-        desc: 'Chúng tôi xin thông báo rằng nếu bạn tiếp tục không đến bãi xe theo lịch đặt, chúng tôi sẽ phải ngưng sử dụng dịch vụ của bạn để duy trì công bằng và đảm bảo tính sẵn sàng cho tất cả người dùng.',
+        title: AppLocalizations.of(context).noticeTitle,
+        desc: AppLocalizations.of(context).banWarningOne,
         btnOkOnPress: () {
           warningFlagProvider.setWarningFlag(true);
         },
@@ -87,8 +89,8 @@ class _HomePageState extends State<HomePage> {
         context: context,
         dialogType: DialogType.error,
         animType: AnimType.bottomSlide,
-        title: 'Thông báo',
-        desc: 'Chúng tôi tiếc báo rằng dịch vụ của bạn đã bị tạm ngưng do không tuân thủ lịch đặt tại bãi xe. Để tiếp tục sử dụng dịch vụ, vui lòng liên hệ với chúng tôi để biết thêm chi tiết và hướng dẫn khắc phục. Chúng tôi rất mong nhận được sự hợp tác của bạn trong việc duy trì trật tự và công bằng cho cộng đồng người dùng của chúng tôi.',
+        title: AppLocalizations.of(context).noticeTitle,
+        desc: AppLocalizations.of(context).banWarningTwo,
         btnOkOnPress: () {
           storage.delete(key: 'token');
           storage.delete(key: 'userID');
@@ -119,6 +121,21 @@ class _HomePageState extends State<HomePage> {
               slivers: <Widget> [
                 SliverAppBar(
                   automaticallyImplyLeading: false,
+                  actions: [
+                    IconButton(
+                      icon: const Icon(Icons.language),
+                      onPressed: () {
+                        final state = MyApp.of(context);
+                        if (state != null) {
+                          if (state.locale.languageCode == 'en') {
+                            state.setLocale(const Locale('vi', 'VN'));
+                          } else {
+                            state.setLocale(const Locale('en', 'US'));
+                          }
+                        }
+                      },
+                    )
+                  ],
                   title: Padding(
                     padding: const EdgeInsets.only( right: 5),
                     child: SizedBox(
@@ -137,9 +154,9 @@ class _HomePageState extends State<HomePage> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children:  [
-                                    const RegularText(text: 'Vị trí của bạn', fontSize: 12, color: AppColor.navyPale),
+                                    RegularText(text: AppLocalizations.of(context).yourLocation, fontSize: 12, color: AppColor.navyPale),
                                     //address
-                                    SemiBoldText(maxLine: 1, text: address != null ? '$address' : 'Loading...',
+                                    SemiBoldText(maxLine: 1, text: address != null ? '$address' : AppLocalizations.of(context).loading,
                                       fontSize: 14,
                                       color: Colors.white,
                                     ),
@@ -174,9 +191,9 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         const SizedBox(height: 16),
 
-                        const Padding(
-                          padding: EdgeInsets.only(left: 20.0, right: 16),
-                          child: TitleList(title: 'Gần bạn', page: ParkingListPage()),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20.0, right: 16),
+                          child: TitleList(title: AppLocalizations.of(context).nearYou, page: const ParkingListPage()),
                         ),
 
                         FutureBuilder<NearestParkingResponse>(
@@ -210,25 +227,25 @@ class _HomePageState extends State<HomePage> {
                                 ),
                               );
                             }else {
-                              return const SizedBox(
+                              return SizedBox(
                                 width: double.infinity,
                                 height: 310,
-                                child: Center(child: SemiBoldText(text: 'Không có bãi xe gần bạn', fontSize: 19, color: AppColor.forText),),
+                                child: Center(child: SemiBoldText(text: AppLocalizations.of(context).noParkingNearby, fontSize: 19, color: AppColor.forText),),
                               );
                             }
                           }
                           if(snapshot.hasError){
                             debugPrint('Error: ${snapshot.error}');
-                              return const SizedBox(
+                              return SizedBox(
                               width: double.infinity,
                               height: 310,
-                              child: Center(child: SemiBoldText(text: '[E]Không có bãi xe gần bạn', fontSize: 19, color: AppColor.forText),),
+                              child: Center(child: SemiBoldText(text: AppLocalizations.of(context).errorNoParking, fontSize: 19, color: AppColor.forText),),
                             );
                           }
-                          return const SizedBox(
+                          return SizedBox(
                             width: double.infinity,
                             height: 310,
-                            child: Center(child: SemiBoldText(text: '[U]Không có bãi xe gần bạn', fontSize: 19, color: AppColor.forText),),
+                            child: Center(child: SemiBoldText(text: AppLocalizations.of(context).unknownNoParking, fontSize: 19, color: AppColor.forText),),
                           );
 
                         },),
@@ -247,9 +264,9 @@ class _HomePageState extends State<HomePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const SizedBox(height: 16),
-                        const Padding(
-                          padding: EdgeInsets.only(left: 20.0, right: 16),
-                          child: TitleList(title: 'Danh sách nổi bật', page: ParkingListPage()),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 20.0, right: 16),
+                          child: TitleList(title: AppLocalizations.of(context).featuredList, page: const ParkingListPage()),
                         ),
 
                         FutureBuilder<RatingHomeResponse>(
@@ -278,24 +295,24 @@ class _HomePageState extends State<HomePage> {
                                   itemCount: snapshot.data!.data!.length,
                                 );
                               }else {
-                                return const SizedBox(
+                                return SizedBox(
                                   width: double.infinity,
                                   height: 310,
-                                  child: Center(child: SemiBoldText(text: 'Không có bãi xe gần bạn', fontSize: 19, color: AppColor.forText),),
+                                  child: Center(child: SemiBoldText(text: AppLocalizations.of(context).noParkingNearby, fontSize: 19, color: AppColor.forText),),
                                 );
                               }
                             }
                             if(snapshot.hasError){
-                              return const SizedBox(
+                              return SizedBox(
                                 width: double.infinity,
                                 height: 510,
-                                child: Center(child: SemiBoldText(text: '[E]Không có bãi xe gần bạn', fontSize: 19, color: AppColor.forText),),
+                                child: Center(child: SemiBoldText(text: AppLocalizations.of(context).errorNoParking, fontSize: 19, color: AppColor.forText),),
                               );
                             }
-                            return const SizedBox(
+                            return SizedBox(
                               width: double.infinity,
                               height: 510,
-                              child: Center(child: SemiBoldText(text: '[U]Không có bãi xe gần bạn', fontSize: 19, color: AppColor.forText),),
+                              child: Center(child: SemiBoldText(text: AppLocalizations.of(context).unknownNoParking, fontSize: 19, color: AppColor.forText),),
                             );
                           },),
 
@@ -311,7 +328,7 @@ class _HomePageState extends State<HomePage> {
                                 MaterialPageRoute(builder: (context) => const ParkingListPage()),
                               );
                             },
-                            child: const SemiBoldText(text: 'Xem thêm', fontSize: 14, color: AppColor.navy),
+                            child: SemiBoldText(text: AppLocalizations.of(context).seeMore, fontSize: 14, color: AppColor.navy),
                           ),
                         ),
                         const SizedBox(height: 26,),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:parkz/utils/constanst.dart';
 import 'package:parkz/utils/text/semi_bold.dart';
+import '../../l10n/app_localizations.dart';
 
 class TitleList extends StatelessWidget {
   final String title;
@@ -21,7 +22,7 @@ class TitleList extends StatelessWidget {
               MaterialPageRoute(builder: (context) => page!),
             );
           },
-          child: const SemiBoldText(text: 'Xem thêm', fontSize: 15, color: AppColor.navy)
+          child: SemiBoldText(text: AppLocalizations.of(context).seeMore, fontSize: 15, color: AppColor.navy)
         ) : const SizedBox(),
       ],
     );
