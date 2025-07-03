@@ -8,6 +8,7 @@ import 'package:parkz/utils/constanst.dart';
 import 'package:parkz/utils/loading/loading_page.dart';
 import 'package:parkz/utils/text/medium.dart';
 import 'package:parkz/utils/text/regular.dart';
+import '../l10n/app_localizations.dart';
 import 'package:parkz/utils/text/semi_bold.dart';
 
 class ParkingDetailPage extends StatefulWidget {
@@ -97,7 +98,7 @@ class _ParkingDetailPageState extends State<ParkingDetailPage> {
               elevation: 0.0,
               leading: const BackButton(color: AppColor.forText),
               backgroundColor: Colors.white,
-              title: const SemiBoldText(text: 'Chi tiết bãi xe', fontSize: 20, color: AppColor.forText),
+              title: SemiBoldText(text: AppLocalizations.of(context).parkingDetailTitle, fontSize: 20, color: AppColor.forText),
             ),
 
             bottomNavigationBar: BottomParkingBar(containerPadding: containerPadding),
@@ -254,9 +255,9 @@ class _ParkingDetailPageState extends State<ParkingDetailPage> {
             ),
           );
         }
-        return const Scaffold(
+        return Scaffold(
           body: Center(
-            child: SemiBoldText(text: 'Không tìm thấy bãi xe', fontSize: 25, color: AppColor.forText, ),
+            child: SemiBoldText(text: AppLocalizations.of(context).notFoundParking, fontSize: 25, color: AppColor.forText, ),
           ),
         );
       }

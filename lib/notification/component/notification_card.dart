@@ -4,6 +4,7 @@ import 'package:parkz/utils/text/regular.dart';
 
 import '../../utils/constanst.dart';
 import '../../utils/text/semi_bold.dart';
+import '../../l10n/app_localizations.dart';
 
 class NotificationCard extends StatefulWidget {
   const NotificationCard({Key? key}) : super(key: key);
@@ -43,14 +44,14 @@ class _NotificationCardState extends State<NotificationCard> {
               Flexible(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
+                  children: [
                     SemiBoldText(
-                        text: 'Thông báo quan trọng',
+                        text: AppLocalizations.of(context).importantNotification,
                         color: AppColor.forText,
                         maxLine: 1,
                         fontSize: 15),
-                    SizedBox(height: 5,),
-                    RegularText(
+                    const SizedBox(height: 5,),
+                    const RegularText(
                         text:
                             'Lorem ipsum dolor sit amet consecrate. Corvallis nec nibh tortor gravida tincidunt sapien.',
                         color: AppColor.forText,

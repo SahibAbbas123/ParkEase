@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:parkz/utils/constanst.dart';
 import 'package:parkz/utils/text/semi_bold.dart';
+import '../l10n/app_localizations.dart';
 
 import '../home/components/parking_horizontal_card.dart';
 import '../home/components/parking_horizontal_shim_list.dart';
@@ -20,7 +21,7 @@ class ParkingListPage extends StatelessWidget {
             color: AppColor.forText
         ),
         backgroundColor: Colors.white,
-        title: const SemiBoldText(text: 'Danh sách bãi xe', fontSize: 20, color: AppColor.forText),
+        title: SemiBoldText(text: AppLocalizations.of(context).parkingListTitle, fontSize: 20, color: AppColor.forText),
       ),
       body: FutureBuilder<RatingHomeResponse>(
         future: getParkingListHome(100),
@@ -47,24 +48,24 @@ class ParkingListPage extends StatelessWidget {
                 itemCount: snapshot.data!.data!.length,
               );
             }else {
-              return const SizedBox(
+              return SizedBox(
                 width: double.infinity,
                 height: 310,
-                child: Center(child: SemiBoldText(text: 'Không có bãi xe gần bạn', fontSize: 19, color: AppColor.forText),),
+                child: Center(child: SemiBoldText(text: AppLocalizations.of(context).noParkingNearby, fontSize: 19, color: AppColor.forText),),
               );
             }
           }
           if(snapshot.hasError){
-            return const SizedBox(
+            return SizedBox(
               width: double.infinity,
               height: 510,
-              child: Center(child: SemiBoldText(text: '[E]Không có bãi xe gần bạn', fontSize: 19, color: AppColor.forText),),
+              child: Center(child: SemiBoldText(text: AppLocalizations.of(context).errorNoParking, fontSize: 19, color: AppColor.forText),),
             );
           }
-          return const SizedBox(
+          return SizedBox(
             width: double.infinity,
             height: 510,
-            child: Center(child: SemiBoldText(text: '[U]Không có bãi xe gần bạn', fontSize: 19, color: AppColor.forText),),
+            child: Center(child: SemiBoldText(text: AppLocalizations.of(context).unknownNoParking, fontSize: 19, color: AppColor.forText),),
           );
         },),
     );

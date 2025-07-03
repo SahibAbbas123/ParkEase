@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:parkz/utils/constanst.dart';
 
 import '../utils/text/semi_bold.dart';
+import '../l10n/app_localizations.dart';
 
 class PersonalInformationPage extends StatefulWidget {
   const PersonalInformationPage({Key? key}) : super(key: key);
@@ -20,8 +21,8 @@ class _PersonalInformationPageState extends State<PersonalInformationPage> {
           leading: const BackButton(color: AppColor.forText),
           elevation: 0,
           backgroundColor: Colors.transparent,
-          title: const SemiBoldText(
-              text: 'Thông tin cá nhân', fontSize: 20, color: AppColor.forText),
+          title: SemiBoldText(
+              text: AppLocalizations.of(context).personalInfoTitle, fontSize: 20, color: AppColor.forText),
           actions: [
             isEdit == false
                 ? IconButton(
